@@ -145,45 +145,45 @@ function! HighlightPosition() abort
     set nocursorline
 endfunction
 
-function! s:strip_newlines(str)
-    return substitute(a:str, '\v^\n*(.{-})\n*$', '\1', '')
-endfunction
+" function! s:strip_newlines(str)
+"     return substitute(a:str, '\v^\n*(.{-})\n*$', '\1', '')
+" endfunction
 
-function! Lint(cmd) abort
-    " Inspired by vim-filetype-formatter and vim-go:
-    " https://github.com/pappasam/vim-filetype-formatter
-    " https://github.com/fatih/vim-go
+" function! Lint(cmd) abort
+"     " Inspired by vim-filetype-formatter and vim-go:
+"     " https://github.com/pappasam/vim-filetype-formatter
+"     " https://github.com/fatih/vim-go
 
-    let stdin = join(getline(1, '$'), "\n")
-    let results_raw = system(a:cmd, stdin)
-    let results = s:strip_newlines(results_raw)
+"     let stdin = join(getline(1, '$'), "\n")
+"     let results_raw = system(a:cmd, stdin)
+"     let results = s:strip_newlines(results_raw)
 
-    " Return early if there was an error.
-    if v:shell_error != 0
-        let results = substitute(results, '<standard input>', expand('%'), 'g')
-        let title = expand(a:cmd) . ' ' . expand('%')
-        lexpr results
-        call setloclist(0, [], 'a', {'title' : title})
-        return
-    endif
+"     " Return early if there was an error.
+"     if v:shell_error != 0
+"         let results = substitute(results, '<standard input>', expand('%'), 'g')
+"         let title = expand(a:cmd) . ' ' . expand('%')
+"         lexpr results
+"         call setloclist(0, [], 'a', {'title' : title})
+"         return
+"     endif
 
-    lexpr []
-    let tempfile = tempname()
-    call writefile(split(results, "\n"), tempfile)
-    let line_offset = len(readfile(tempfile)) - line('$')
-    let line_number = line('.') + line_offset
-    let original_column = col('.')
-    let original_line = getline('.')
-    let tempundofile = tempname()
-    execute 'wundo! ' . tempundofile
-    call system('chmod --reference=' . expand('%') . ' '
-            \ . shellescape(tempfile))
-    call rename(tempfile, expand('%'))
-    silent edit!
-    silent! execute 'rundo ' . tempundofile
-    call delete(tempundofile)
-    call cursor(line_number, original_column +
-            \ (len(getline(line_number)) - len(original_line)))
-endfunction
+"     lexpr []
+"     let tempfile = tempname()
+"     call writefile(split(results, "\n"), tempfile)
+"     let line_offset = len(readfile(tempfile)) - line('$')
+"     let line_number = line('.') + line_offset
+"     let original_column = col('.')
+"     let original_line = getline('.')
+"     let tempundofile = tempname()
+"     execute 'wundo! ' . tempundofile
+"     call system('chmod --reference=' . expand('%') . ' '
+"             \ . shellescape(tempfile))
+"     call rename(tempfile, expand('%'))
+"     silent edit!
+"     silent! execute 'rundo ' . tempundofile
+"     call delete(tempundofile)
+"     call cursor(line_number, original_column +
+"             \ (len(getline(line_number)) - len(original_line)))
+" endfunction
 
-command! -nargs=1 -bar Lint :silent! call Lint(<f-args>)
+" command! -nargs=1 -bar Lint :silent! call Lint(<f-args>)
