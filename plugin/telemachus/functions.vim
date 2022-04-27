@@ -1,9 +1,9 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-function! LineToClipboard()
-    let @+ = getline('.')
-endfunction
+" function! LineToClipboard()
+"     let @+ = getline('.')
+" endfunction
 
 " https://github.com/mgedmin/dotvim/blob/master/autoload/python.vim
 " He puts it in autoload/python.vim, which makes some sense to me.
