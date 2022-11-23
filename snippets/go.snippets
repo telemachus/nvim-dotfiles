@@ -150,7 +150,7 @@ snippet bench "func BenchmarkXYZ(b *testing.B) { ... }"
 # expected != actual
 snippet nexp "if actual != expected { t.Errorf(...) }"
 	if ${1:expected} != ${2:actual} {
-		t.Errorf("expected %${3:q}; actual %${4:q}${5:; more}", $1, $2${6:, more})
+		t.Errorf("expected %${3:v}; actual %${4:v}", ${1:expected}, ${2:actual})
 	}
 # do something when a key is not present in a map
 snippet nok "if <key>, ok := <map>[<value>]; !ok { ... }"
