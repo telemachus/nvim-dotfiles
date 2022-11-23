@@ -114,9 +114,22 @@ snippet init "func init() { ... }" b
 	func init() {
 		$1
 	}
+# t.Error("message")
+snippet terr "t.Error(...)" b
+	t.Error("${1:message}")
+# t.Errorf("message", args,...)
+snippet terrf "t.Errorf(...)" b
+	t.Errorf("${1:message}", ${2:args,...})
+# t.Fatal("message")
+snippet tfat "t.Fatal(...)" b
+	t.Fatal("${1:message}")
+# t.Fatalf("message", args,...)
+snippet tfatf "t.Fatalf(...)" b
+	t.Fatalf("${1:message}", ${2:args,...})
 # test function
 snippet test "func TestXYZ(t *testing.T) { ... }"
 	func Test${1:Something}(t *testing.T) {
+		t.Parallel()
 		$2
 	}
 # write a helper function for tests
