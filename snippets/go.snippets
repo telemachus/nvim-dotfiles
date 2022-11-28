@@ -15,8 +15,11 @@ snippet fmt "import fmt" b
 # import
 snippet import "import ( ... )" b
 	import (
-		"$1"
+		"$1"$2
 	)
+# string literal
+snippet " "string literal"
+	"$1"$2
 # condition-only for loop (i.e., a while loop)
 snippet while "for condition { ... }" b
 	for ${1:condition} {
