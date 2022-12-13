@@ -1,4 +1,4 @@
-CompilerSet makeprg=revive
+CompilerSet makeprg=revive\ -config\ ~/.revive.toml
 CompilerSet errorformat=%f:%l:%c:\ %m
 
 " Explanation of the error format:
